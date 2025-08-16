@@ -24,11 +24,43 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable}  grid grid-rows-[auto_1fr_auto] relative antialiased  min-h-dvh`}>
+
+        <nav className="sticky top-0 z-50  py-4 dark:bg-neutral-950/50 ">
+          <div className="mx-auto px-2 md:px-4 max-w-7xl flex items-center justify-between">
+
+            <h2 className="text-xl font-bold">Snippy</h2>
+          </div>
+        </nav>
+        <div className="w-full mx-auto px-2 md:px-4 max-w-7xl my-4">
+
+
+
+          <main className="flex flex-col lg:flex-row gap-4">
+            {children}
+          </main>
+
+          {/*  <main className="flex flex-col lg:flex-row gap-4 lg:h-[400px] lg:overflow-y-auto border border-red-500">
+            <header className="lg:w-1/3 border border-blue-500">
+              <div className="sticky top-15 bg-yellow-300 p-4">
+                SOY STICKY
+              </div>
+              <p className="h-[1500px]">contenido de prueba</p>
+            </header>
+
+            <section className="flex-1 border border-green-500">
+              <p className="h-[1500px]">scroll derecho</p>
+            </section>
+          </main> */}
+
+        </div>
+        <footer className="h-16 p-4 text-center">
+          © 2025 My Application
+        </footer>
       </body>
-    </html>
-  );
+    </html >
+  )
 }
+/* font-sans  */
+{/* <div className="grid min-h-screen grid-rows-[auto_1fr_auto]">
+</div> */}
