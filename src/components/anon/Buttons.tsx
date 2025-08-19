@@ -14,7 +14,7 @@ export function DeleteAnonURL({ children, id, loading, className }: DeleteButton
   const deleteAnonURLWithId = deleteAnonURL.bind(null, id)
   return (
     <form action={deleteAnonURLWithId}>
-      <Button type="submit" variant="secondary" size="icon" loading={loading}
+      <Button type="submit" variant="ghost" size="icon" loading={loading}
         className={cn(
           "size-7 p-0.5",
           "relative",
@@ -22,8 +22,6 @@ export function DeleteAnonURL({ children, id, loading, className }: DeleteButton
           "before:absolute before:inset-0 before:z-50 before:block",
           "before:top-2/4 before:left-2/4 before:transform-[translate(-50%,-50%)]",
           "before:w-full before:h-full  before:min-w-11 before:min-h-11",
-          "dark:bg-neutral-800/20 dark:hover:bg-neutral-700/20 dark:text-neutral-300",
-          'border border-transparent ',
           className
         )}
         aria-label="Delete shortened URL">
