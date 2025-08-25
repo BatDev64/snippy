@@ -34,6 +34,9 @@ export type State = {
   status?: 'idle' | 'success' | 'error' | null
 }
 
+const MAX_ATTEMPTS = 5
+const URL_TTL_MINUTES = 30
+
 export async function createAnonURL(prevState: State | undefined, formData: FormData): Promise<State> {
 
   const supabase = await createClient()
@@ -66,37 +69,62 @@ export async function createAnonURL(prevState: State | undefined, formData: Form
     } as State
   }
 
+  const now = new Date()
+  const expires = addMinutes(now, URL_TTL_MINUTES).toISOString()
+  let shortCode = ''
+  let inserted = false
+
+  let attempts = 0
 
   try {
-    const now = new Date()
-    const expires = addMinutes(now, 30).toISOString()
-    const shortCode = nanoid(7)
 
-    const { error } = await supabase.from('anon_urls').insert([
-      {
-        client_id: clientId,
-        original_url: originalURL,
-        short_code: shortCode,
-        expires_at: expires
+    do {
+      shortCode = nanoid(7)
+
+      const { error } = await supabase.from('anon_urls').insert([
+        {
+          client_id: clientId,
+          original_url: originalURL,
+          short_code: shortCode,
+          expires_at: expires
+        }
+      ]).select().single()
+
+      if (!error) {
+        inserted = true
+        break
       }
-    ]).select().single()
 
-    if (error) {
+      if (error.code === '23505' || (error.message && error.message.toLowerCase().includes('unique'))) {
+        attempts++
+        continue
+      }
+
       console.error('Supabase insert error:', error)
       return { status: 'error', message: 'Failed to create URL.', errors: {} }
+
+    } while (attempts < MAX_ATTEMPTS)
+
+    if (!inserted) {
+      return { status: 'error', message: 'Could not generate a unique short code. Try again.', errors: {} }
     }
 
-    revalidatePath('/')
 
+    revalidatePath('/')
     return {
       status: 'success',
       message: 'URL created successfully!',
       errors: {},
     } as State
   } catch (err) {
+    if (err instanceof Error && err.message.includes('has reached the maximum')) {
+      return { status: 'error', message: 'Maximum attempts reached. Please delete some URLs or try again later.', errors: {} }
+    }
     console.error('createAnonURL unexpected error', err)
+    revalidatePath('/')
     return { status: 'error', message: 'Unexpected server error. Try again.', errors: {} }
   }
+
 }
 
 export async function deleteAnonURL(id: string) {
