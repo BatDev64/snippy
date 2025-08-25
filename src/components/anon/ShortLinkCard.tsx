@@ -1,8 +1,8 @@
 import Link from "next/link"
 import { Card } from "../ui/Card"
 import { DeleteAnonURL } from "./Buttons"
-import { Clipboard, ExternalLink } from "../ui/icons"
-import { Button } from "../ui/Button"
+import { ExternalLink } from "../ui/icons"
+import { CopyButton } from "./CopyButton"
 
 interface Props {
     id: string
@@ -27,9 +27,7 @@ export const ShortLinkCard = ({ id, shortCode, originalUrl, expiresAt }: Props) 
                 </Card.Description>
             </Card.Header>
             <Card.Actions className="flex flex-row-reverse">
-                <Button variant="default" size="sm" leftIcon={<Clipboard className="h-3 w-3 " />} className="">
-                    Copy
-                </Button>
+                <CopyButton text={`https://snippy.vercel.app/${shortCode}`} />
             </Card.Actions>
         </Card.Root>
     )
