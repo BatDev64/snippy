@@ -29,28 +29,29 @@ export const Form = () => {
     <form noValidate action={formAction} className="w-full">
       <div className="flex flex-col sm:flex-row sm:items-center gap-4">
 
-        <div className="flex-1">
-          <Input
-            id="original-url-input"
-            type="text"
-            name="original-url"
-            placeholder="https://example.com/very-long-url"
-            leftIcon={<Link className="h-4 w-4" />}
-            disabled={isPending}
-            className="w-full dark:bg-neutral-950/50"
-            aria-describedby={fieldErrors ? 'url-error' : undefined}
-            aria-invalid={fieldErrors ? 'true' : 'false'}
-          />
+        <label htmlFor="anon-url" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Shorten URL</label>
+        <div className="relative flex-1 flex flex-wrap  items-center gap-4 justify-center">
+          <div className="relative flex-1 flex flex-wrap  items-center gap-4 justify-center">
+            <div className="absolute  top-2.5 bottom-2.5 start-0 inline-flex items-center ps-3 pointer-events-none">
+              <Link className="h-4 w-4" />
+            </div>
+            <input type="text" id="anon-url" className="block w-full p-4 ps-10 text-sm text-neutral-900 border border-neutral-300 rounded-md bg-neutral-50 focus:ring-lime-500 focus:border-lime-500 dark:bg-neutral-900 dark:border-neutral-800 dark:placeholder-neutral-400 dark:text-white outline-none dark:focus:ring-lime-500 dark:focus:border-lime-500 focus-visible:ring-2 focus-visible:ring-lime-500 dark:focus-visible:ring-offset-neutral-900 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 read-only:cursor-default read-only:focus-visible:ring-0 file:border-0 file:bg-transparent file:text-sm file:font-medium transition-all duration-200" placeholder="https://example.com/very-long-url" required disabled={isPending} aria-describedby={fieldErrors ? 'url-error' : undefined}
+              aria-invalid={fieldErrors ? 'true' : 'false'}
+              name='original-url'
+            />
+          </div>
+          <Button
+            type="submit"
+            variant="primary"
+            loading={isPending}
+            leftIcon={!isPending ? <Scissors className="h-4 w-4" /> : undefined}
+            className="sm:w-auto w-full sm:absolute end-2.5"
+          >
+            {isPending ? 'Shortening...' : 'Shorten URL'}
+          </Button>
         </div>
-        <Button
-          type="submit"
-          variant="primary"
-          loading={isPending}
-          leftIcon={!isPending ? <Scissors className="h-4 w-4" /> : undefined}
-          className="sm:w-auto w-full"
-        >
-          {isPending ? 'Shortening...' : 'Shorten URL'}
-        </Button>
+
+
       </div>
 
       <div className="flex flex-col gap-2 mt-2">
