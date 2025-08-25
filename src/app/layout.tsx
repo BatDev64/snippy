@@ -30,14 +30,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="relative">
-      <body className={`${inter.className} ${geistSans.variable} ${geistMono.variable} flex flex-col justify-between items-center min-h-dvh`}>
-        <nav className="w-full py-4 px-2 md:px-4 dark:bg-neutral-950/50 max-w-7xl">
-          <h2 className="text-xl font-bold font-display block hover:text-lime-500"><Link href='/'>Snippy URL</Link></h2>
-        </nav>
+      <body className={`${inter.className} ${geistSans.variable} ${geistMono.variable} grid grid-rows-[auto_1fr_auto] min-h-dvh bg-green-body `}>
+        <header className="w-full sticky top-0 z-50 bg-neutral-950/0 backdrop-blur-sm py-4">
+          <nav className="wrapper">
+            <h2 className="text-xl font-bold font-display block hover:text-lime-500"><Link href='/'>Snippy URL</Link></h2>
+          </nav>
+        </header>
 
 
 
-        <main>
+        <main className="w-full grid grid-rows-[1fr-1fr] relative">
           {children}
         </main>
 

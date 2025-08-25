@@ -2,27 +2,43 @@ import { getAnonURLsByClientId } from "@/lib/data";
 import { Form } from "@/components/anon/CreateURL";
 import { Suspense } from "react";
 import { ShortLinkList } from "@/components/anon/ShortLinkList";
-
+import Image from "next/image"
 export default async function Home() {
   const urls = await getAnonURLsByClientId()
   /* */
   return (
-    <div className="w-full mx-auto px-2 md:px-4 md:max-w-7xl my-4">
-      <div className="flex flex-col justify-center items-center gap-12">
-        <header className="text-balance text-center flex flex-col justify-center items-center gap-10">
-          <div className="sm:max-w-lg md:max-w-xl">
-            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl leading-[1.1111111] mb-6 font-semibold font-display bg-linear-to-tl from-emerald-500 via-lime-200 from-0% via-30% to-60% to-neutral-300 bg-clip-text text-transparent">Turn endless URLs into flawless links</h1>
-            <h2 className="text-sm xs:text-base sm:text-lg  font-sans md:text-lg dark:text-neutral-300 "><b>No account required</b>. Up to 10 links per session, each <b>active for 30 minutes...</b></h2>
-          </div>
-          <Form />
-        </header>
+    <>
+      <section className="relative w-full py-8 gap-4 flex flex-col justify-center items-center overflow-hidden">
 
-        <section className="w-full">
-          <Suspense fallback={<p>Loading...</p>}>
-            <ShortLinkList initialURLs={urls!} />
-          </Suspense>
-        </section>
-      </div>
-    </div>
+        <div className="relative z-40 text-balance w-full wrapper">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 2xl:8xl tracking-tight font-bold leading-tight font-display max-w-[900px]">Turn endless URLs into flawless links</h1>
+          <p className="text-base sm:text-lg md:text-xl leading-relaxed text-muted-foreground font-sans mt-4 max-w-prose">No account required. Up to 10 links per session, each active for 30 minutes...</p>
+          <div className="lg:max-w-3/4 mt-10">
+
+            <Form />
+          </div>
+        </div>
+
+        <div className="hidden lg:block size-[35%] absolute top-[8%] right-[6%] z-20 opacity-20 -rotate-[18deg]  float ">
+          <Image
+            src="/link-3D.png"
+            alt="Logo de la app"
+            width={400}
+            height={400}
+            className="h-auto w-full [mask-image:linear-gradient(to_bottom,black_10%,transparent_90%)] [mask-repeat:no-repeat] [mask-size:100%] [-webkit-mask-image:linear-gradient(to_bottom,black_10%,transparent_90%)] hidden lg:block "
+            priority
+          />
+        </div>
+
+      </section>
+
+
+      <section className="w-full wrapper py-8 relative z-40">
+        <Suspense fallback={<p>Loading...</p>}>
+          <ShortLinkList initialURLs={urls!} />
+        </Suspense>
+      </section>
+    </>
   );
 }
+
