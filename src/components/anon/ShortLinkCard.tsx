@@ -19,7 +19,7 @@ export const ShortLinkCard = ({ id, shortCode, originalUrl, expiresAt }: Props) 
                 <Card.ExpirationTime>Expires {expiresAt}</Card.ExpirationTime>
                 <Card.Title>
                     <Link target="_blank" href={`/${shortCode}`}>
-                        {`snippy.vercel.app/${shortCode}`}<ExternalLink className="inline-block w-4 h-4 ml-2" />
+                        {`${process.env.DOMAIN}/${shortCode}`}<ExternalLink className="inline-block w-4 h-4 ml-2" />
                     </Link>
                 </Card.Title>
                 <Card.Description>
@@ -27,7 +27,7 @@ export const ShortLinkCard = ({ id, shortCode, originalUrl, expiresAt }: Props) 
                 </Card.Description>
             </Card.Header>
             <Card.Actions className="flex flex-row-reverse">
-                <CopyButton text={`https://snippy.vercel.app/${shortCode}`} />
+                <CopyButton text={`https://${process.env.DOMAIN}/${shortCode}`} />
             </Card.Actions>
         </Card.Root>
     )
