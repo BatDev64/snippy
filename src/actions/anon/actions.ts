@@ -6,6 +6,7 @@ import { addMinutes } from 'date-fns'
 import { z } from 'zod'
 import { nanoid } from 'nanoid'
 import { revalidatePath } from "next/cache"
+import { Anon_urlsInsert } from "@/types/definitions"
 
 
 
@@ -81,14 +82,14 @@ export async function createAnonURL(prevState: State | undefined, formData: Form
     do {
       shortCode = nanoid(7)
 
-      const { error } = await supabase.from('anon_urls').insert([
-        {
-          client_id: clientId,
-          original_url: originalURL,
-          short_code: shortCode,
-          expires_at: expires
-        }
-      ]).select().single()
+      const newRow: Anon_urlsInsert = {
+        client_id: clientId,
+        original_url: originalURL,
+        short_code: shortCode,
+        expires_at: expires,
+      }
+
+      const { error } = await supabase.from('anon_urls').insert(newRow).select().single()
 
       if (!error) {
         inserted = true
@@ -109,8 +110,8 @@ export async function createAnonURL(prevState: State | undefined, formData: Form
       return { status: 'error', message: 'Could not generate a unique short code. Try again.', errors: {} }
     }
 
-
     revalidatePath('/')
+
     return {
       status: 'success',
       message: 'URL created successfully!',
@@ -124,7 +125,6 @@ export async function createAnonURL(prevState: State | undefined, formData: Form
     revalidatePath('/')
     return { status: 'error', message: 'Unexpected server error. Try again.', errors: {} }
   }
-
 }
 
 export async function deleteAnonURL(id: string) {
