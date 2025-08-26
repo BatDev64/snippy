@@ -2,7 +2,6 @@
 
 import { type State, createAnonURL } from "@/actions/anon/actions"
 import { useActionState, useEffect, useState } from "react"
-import { Input } from "../ui/Input"
 import { Button } from "../ui/Button"
 import { Link, Scissors } from "../ui/icons"
 
