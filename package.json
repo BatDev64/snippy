@@ -10,12 +10,12 @@
     "gen:types": "supabase gen types typescript --project-id \"$SUPABASE_PROJECT_ID\" > database.types.ts"
   },
   "dependencies": {
-    "@supabase/ssr": "^0.6.1",
-    "@supabase/supabase-js": "^2.52.1",
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.56.0",
     "nanoid": "^5.1.5",
-    "next": "15.4.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "next": "15.5.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "zod": "^4.0.10"
   },
   "devDependencies": {
@@ -28,7 +28,7 @@
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "eslint": "^9",
-    "eslint-config-next": "15.4.3",
+    "eslint-config-next": "15.5.0",
     "supabase": "^2.33.7",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4",
