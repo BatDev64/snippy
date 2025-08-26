@@ -5,12 +5,11 @@ import { X } from "../ui/icons/X";
 
 interface DeleteButtonProps {
   id: string
-  children?: React.ReactNode
   loading?: boolean
   className?: string
 }
 
-export function DeleteAnonURL({ children, id, loading, className }: DeleteButtonProps) {
+export function DeleteAnonURL({ id, loading, className }: DeleteButtonProps) {
   const deleteAnonURLWithId = deleteAnonURL.bind(null, id)
   return (
     <form action={deleteAnonURLWithId}>
